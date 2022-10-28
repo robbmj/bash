@@ -12,43 +12,35 @@ source $MBH/lib/vec/vec.sh
 #
 
 txt_black() {
-	local msg=$(_txt_chain_ "$@")
-	echo -e "$(txt_c black)"$(_txt_h_ "$msg")
+	echo $(_txt_wrap_ black "$@")
 }
 
 txt_red() {
-	local msg=$(_txt_chain_ "$@")
-	echo -e "$(txt_c red)"$(_txt_h_ "$msg")
-}
-
-txt_yellow() {
-	local msg=$(_txt_chain_ "$@")
-	echo -e "$(txt_c yellow)"$(_txt_h_ "$msg")
+	echo $(_txt_wrap_ red "$@")
 }
 
 txt_green() {
-	local msg=$(_txt_chain_ "$@")
-	echo -e "$(txt_c green)"$(_txt_h_ "$msg")
+	echo $(_txt_wrap_ green "$@")
+}
+
+txt_yellow() {
+	echo $(_txt_wrap_ yellow "$@")
 }
 
 txt_blue() {
-	local msg=$(_txt_chain_ "$@")
-	echo -e "$(txt_c blue)"$(_txt_h_ "$msg")
+	echo $(_txt_wrap_ blue "$@")
 }
 
 txt_magenta() {
-	local msg=$(_txt_chain_ "$@")
-	echo -e "$(txt_c magenta)"$(_txt_h_ "$msg")
+	echo $(_txt_wrap_ magenta "$@")
 }
 
 txt_cyan() {
-	local msg=$(_txt_chain_ "$@")
-	echo -e "$(txt_c cyan)"$(_txt_h_ "$msg")
+	echo $(_txt_wrap_ cyan "$@")
 }
 
 txt_white() {
-	local msg=$(_txt_chain_ "$@")
-	echo -e "$(txt_c white)"$(_txt_h_ "$msg")
+	echo $(_txt_wrap_ white "$@")
 }
 
 #
@@ -56,23 +48,19 @@ txt_white() {
 #
 
 txt_bold() {
-	local msg=$(_txt_chain_ "$@")
-	echo "$(txt_c bold)"$(_txt_h_ "$msg")
+	echo $(_txt_wrap_ bold "$@")
 }
 
 txt_ul() {
-	local msg=$(_txt_chain_ "$@")
-	echo "$(txt_c ul)"$(_txt_h_ "$msg")
+	echo $(_txt_wrap_ ul "$@")
 }
 
 txt_italic() {
-	local msg=$(_txt_chain_ "$@")
-	echo "$(txt_c italic)"$(_txt_h_ "$msg")
+	echo $(_txt_wrap_ italic "$@")
 }
 
 txt_blink() {
-	local msg=$(_txt_chain_ "$@")
-	echo "$(txt_c blink)"$(_txt_h_ "$msg")
+	echo $(_txt_wrap_ blink "$@")
 }
 
 #
@@ -80,43 +68,35 @@ txt_blink() {
 #
 
 txt_black_bg() {
-	local msg=$(_txt_chain_ "$@")
-	echo -e "$(txt_c black_bg)"$(_txt_h_ "$msg")
+	echo $(_txt_wrap_ black_bg "$@")
 }
 
 txt_red_bg() {
-	local msg=$(_txt_chain_ "$@")
-	echo -e "$(txt_c red_bg)"$(_txt_h_ "$msg")
-}
-
-txt_yellow_bg() {
-	local msg=$(_txt_chain_ "$@")
-	echo -e "$(txt_c yellow_bg)"$(_txt_h_ "$msg")
+	echo $(_txt_wrap_ red_bg "$@")
 }
 
 txt_green_bg() {
-	local msg=$(_txt_chain_ "$@")
-	echo -e "$(txt_c green_bg)"$(_txt_h_ "$msg")
+	echo $(_txt_wrap_ green_bg "$@")
+}
+
+txt_yellow_bg() {
+	echo $(_txt_wrap_ yellow_bg "$@")
 }
 
 txt_blue_bg() {
-	local msg=$(_txt_chain_ "$@")
-	echo -e "$(txt_c blue_bg)"$(_txt_h_ "$msg")
+	echo $(_txt_wrap_ blue_bg "$@")
 }
 
 txt_magenta_bg() {
-	local msg=$(_txt_chain_ "$@")
-	echo -e "$(txt_c magenta_bg)"$(_txt_h_ "$msg")
+	echo $(_txt_wrap_ magenta_bg "$@")
 }
 
 txt_cyan_bg() {
-	local msg=$(_txt_chain_ "$@")
-	echo -e "$(txt_c cyan_bg)"$(_txt_h_ "$msg")
+	echo $(_txt_wrap_ cyan_bg "$@")
 }
 
 txt_white_bg() {
-	local msg=$(_txt_chain_ "$@")
-	echo -e "$(txt_c white_bg)"$(_txt_h_ "$msg")
+	echo $(_txt_wrap_ white_bg "$@")
 }
 
 txt_c() {
@@ -128,11 +108,11 @@ txt_c() {
 		red)
 			echo $(tput setaf 1)
 		;;
-		yellow)
-			echo $(tput setaf 3)
-		;;
 		green)
 			echo $(tput setaf 2)
+		;;
+		yellow)
+			echo $(tput setaf 3)
 		;;
 		blue)
 			echo $(tput setaf 4)
@@ -166,11 +146,11 @@ txt_c() {
 		red_bg)
 			echo $(tput setab 1)
 		;;
-		yellow_bg)
-			echo $(tput setab 3)
-		;;
 		green_bg)
 			echo $(tput setab 2)
+		;;
+		yellow_bg)
+			echo $(tput setab 3)
 		;;
 		blue_bg)
 			echo $(tput setab 4)
@@ -188,6 +168,13 @@ txt_c() {
 			echo $(tput sgr0)
 		;;
 	esac
+}
+
+_txt_wrap_() {
+	local highlight="$1"
+	shift
+	local msg=$(_txt_chain_ "$@")
+	echo "$(txt_c $highlight)"$(_txt_h_ "$msg")
 }
 
 _txt_chain_() {
